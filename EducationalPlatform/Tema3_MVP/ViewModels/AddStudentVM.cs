@@ -1,0 +1,147 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
+using System.Xml.Linq;
+using Tema3_MVP.Commands;
+using Tema3_MVP.Models.BusinessLogicLayer;
+using Tema3_MVP.Models.EntityLayer;
+using System.Collections.ObjectModel;
+using Tema3_MVP.Models.DataAccessLayer;
+
+namespace Tema3_MVP.ViewModels
+{
+    public class AddStudentVM: ViewModelBase
+    {
+        string role = "Student";
+        public UserBLL userBLL = new UserBLL();
+        public StudentBLL studentBLL = new StudentBLL();
+        public ObservableCollection<User> users;
+
+        public ObservableCollection<User> Users
+        {
+            get { return users; }
+            set
+            {
+                if (users != value)
+                {
+                    users = value;
+                    NotifyPropertyChanged(nameof(users));
+                }
+
+            }
+        }
+
+        private User selectedUser;
+
+        public User SelectedUser
+        {
+            get { return selectedUser; }
+            set
+            {
+                if (selectedUser != value)
+                {
+                    selectedUser = value;
+                    NotifyPropertyChanged(nameof(selectedUser));
+                }
+            }
+        }
+        public AddStudentVM() 
+        { 
+            users = UserBLL.GetUsersByRole(role);
+            classes = ClassBLL.GetAllClasses();
+        }
+
+        private string firstname;
+        private string lastname;
+        public string Firstname
+        {
+            get { return firstname; }
+            set
+            {
+                if (firstname != value)
+                {
+                    firstname = value;
+                    NotifyPropertyChanged(nameof(Firstname));
+                }
+
+            }
+        }
+
+        public string Lastname
+        {
+            get { return lastname; }
+            set
+            {
+                if (lastname != value)
+                {
+                    lastname = value;
+                    NotifyPropertyChanged(nameof(Lastname));
+                }
+
+            }
+        }
+        public ObservableCollection<Class> classes;
+
+        public ObservableCollection<Class> Classes
+        {
+            get { return classes; }
+            set
+            {
+                if (classes != value)
+                {
+                    classes = value;
+                    NotifyPropertyChanged(nameof(classes));
+                }
+
+            }
+        }
+
+        private Class selectedClass;
+
+        public Class SelectedClass
+        {
+            get { return selectedClass; }
+            set
+            {
+                if (selectedClass != value)
+                {
+                    selectedClass = value;
+                    NotifyPropertyChanged(nameof(selectedClass));
+                }
+            }
+        }
+        public ICommand addStudentCommand { get; set; }
+        public ICommand AddStudentCommand
+        {
+            get
+            {
+                if (addStudentCommand == null)
+                {
+                    addStudentCommand = new RelayCommand<Student>(this.AddStudent);
+                }
+
+                return addStudentCommand;
+            }
+        }
+
+        public void AddStudent(Student student)
+        {
+            if(selectedUser!=null)
+            {
+                Student student1 = new Student(Firstname, Lastname, selectedUser.userID);
+                int student_id = StudentBLL.AddStudent(student1);
+                ClassStudents classStudents = new ClassStudents(selectedClass.classID, student_id);
+                ClassStudentBLL.AddClassStudent(classStudents);
+                MessageBox.Show("Student Added");
+            }
+            else
+            {
+                MessageBox.Show("Please Select a user");
+            }
+        }
+    }
+}
