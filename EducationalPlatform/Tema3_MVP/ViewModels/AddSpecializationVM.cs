@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Packaging;
@@ -20,8 +21,6 @@ namespace Tema3_MVP.ViewModels
         {
             subjects = SubjectBLL.GetAllSubjects();
         }
-        public SpecializationBLL specializationBLL = new SpecializationBLL();
-        public Specialization newSpecialization;
 
         private string name;
         public string Name
@@ -37,7 +36,7 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand addSpecializationCommand { get; set; }
+        private ICommand addSpecializationCommand { get; set; }
 
         public ICommand AddSpecializationCommand
         {
@@ -45,7 +44,7 @@ namespace Tema3_MVP.ViewModels
             {
                 if (addSpecializationCommand == null)
                 {
-                    addSpecializationCommand = new RelayCommand<Specialization>(this.AddSpecialization);
+                    addSpecializationCommand = new RelayCommand(this.AddSpecialization);
                 }
 
                 return addSpecializationCommand;
@@ -95,12 +94,10 @@ namespace Tema3_MVP.ViewModels
                 }
             }
         }
-        public void AddSpecialization(Specialization specialization)
+        private void AddSpecialization()
         {
-            Specialization specialization1 = new Specialization(Name);
-            int specializationID = SpecializationBLL.AddSpecialization(specialization1);
-           /* SpecializationSubject newSpecializationSubject = new SpecializationSubject(specializationID, selectedSubject.subjectID, _hasThesis);
-            SpecializationSubjectBLL.AddSpecializatioSubject(newSpecializationSubject);*/
+            Specialization newSpecialization = new Specialization(Name);
+            int specializationID = SpecializationBLL.AddSpecialization(newSpecialization);
             MessageBox.Show("Specialization Added");
         }
     }

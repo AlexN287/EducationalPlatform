@@ -17,7 +17,7 @@
         <!-- Input Section -->
         <StackPanel Grid.Row="0" Margin="10">
             
-            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteMaterialCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteMaterialCommand}"/>
             
 
         </StackPanel>

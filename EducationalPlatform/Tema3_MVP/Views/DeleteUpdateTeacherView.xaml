@@ -19,8 +19,8 @@
             <TextBox x:Name="firstNameTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Firstname}"/>
             <TextBlock Text="Last Name:"/>
             <TextBox x:Name="lastNameTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Lastname}"/>
-            <Button Content="Update" Width="80" HorizontalAlignment="Center" Command="{Binding UpdateTeacherCommand}" CommandParameter="{Binding newStudent}"/>
-            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteTeacherCommand}" CommandParameter="{Binding newStudent}"/>
+            <Button Content="Update" Width="80" HorizontalAlignment="Center" Command="{Binding UpdateTeacherCommand}"/>
+            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteTeacherCommand}"/>
         </StackPanel>
 
         <!-- ListView Section -->

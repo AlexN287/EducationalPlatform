@@ -9,13 +9,20 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class DeleteUpdateClassVM: ViewModelBase
     {
-        public ObservableCollection<Class> classes;
+        public DeleteUpdateClassVM()
+        {
+            classes = ClassBLL.GetAllClasses();
+            teachers = TeacherBLL.GetAllTeachers();
+            specializations = SpecializationBLL.GetAllSpecializations();
+        }
 
+        private ObservableCollection<Class> classes;
         public ObservableCollection<Class> Classes
         {
             get { return classes; }
@@ -31,7 +38,6 @@ namespace Tema3_MVP.ViewModels
         }
 
         private Class selectedClass;
-
         public Class SelectedClass
         {
             get { return selectedClass; }
@@ -46,7 +52,6 @@ namespace Tema3_MVP.ViewModels
         }
 
         public ObservableCollection<Teacher> teachers;
-
         public ObservableCollection<Teacher> Teachers
         {
             get { return teachers; }
@@ -62,7 +67,6 @@ namespace Tema3_MVP.ViewModels
         }
 
         private Teacher selectedTeacher;
-
         public Teacher SelectedTeacher
         {
             get { return selectedTeacher; }
@@ -74,12 +78,6 @@ namespace Tema3_MVP.ViewModels
                     NotifyPropertyChanged(nameof(selectedTeacher));
                 }
             }
-        }
-        public DeleteUpdateClassVM()
-        {
-            classes = ClassBLL.GetAllClasses();
-            teachers = TeacherBLL.GetAllTeachers();
-            specializations = SpecializationBLL.GetAllSpecializations();
         }
 
         private string studyYear;
@@ -97,7 +95,6 @@ namespace Tema3_MVP.ViewModels
 
             }
         }
-
         public string Section
         {
             get { return section; }
@@ -141,26 +138,26 @@ namespace Tema3_MVP.ViewModels
 
             }
         }
-        public ICommand updateClassCommand { get; set; }
+        private ICommand updateClassCommand { get; set; }
         public ICommand UpdateClassCommand
         {
             get
             {
                 if (updateClassCommand == null)
                 {
-                    updateClassCommand = new RelayCommand<Class>(this.UpdateClass);
+                    updateClassCommand = new RelayCommand(this.UpdateClass);
                 }
 
                 return updateClassCommand;
             }
         }
 
-        public void UpdateClass(Class newClass)
+        private void UpdateClass()
         {
             if (selectedTeacher != null)
             {
-                Class class1 = new Class(selectedClass.ClassID,selectedTeacher.teacherID, int.Parse(studyYear), selectedSpecialization.specializationID, section[0]);
-                ClassBLL.UpdateClass(class1);
+                Class classToUpdate = new Class(selectedClass.ClassID,selectedTeacher.teacherID, int.Parse(studyYear), selectedSpecialization.specializationID, section[0]);
+                ClassBLL.UpdateClass(classToUpdate);
                 MessageBox.Show("class updated");
             }
             else
@@ -169,21 +166,21 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand deleteClassCommand { get; set; }
+        private ICommand deleteClassCommand { get; set; }
         public ICommand DeleteClassCommand
         {
             get
             {
                 if (deleteClassCommand == null)
                 {
-                    deleteClassCommand = new RelayCommand<Class>(this.DeleteClass);
+                    deleteClassCommand = new RelayCommand(this.DeleteClass);
                 }
 
                 return deleteClassCommand;
             }
         }
 
-        public void DeleteClass(Class newClass)
+        private void DeleteClass()
         {
             ClassBLL.DeleteClass(selectedClass);
             MessageBox.Show("Class Deleted");

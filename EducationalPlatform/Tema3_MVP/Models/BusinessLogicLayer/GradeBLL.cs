@@ -38,14 +38,14 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             {
                 if (grade == null)
                 {
-                    throw new ArgumentNullException(nameof(grade), "Absence cannot be null.");
+                    throw new ArgumentNullException(nameof(grade), "Grade cannot be null.");
                 }
 
                 gradeDAL.CancelGrade(grade);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a absence: " + ex.Message);
+                Console.WriteLine("An error occurred while canceling a grade: " + ex.Message);
                 throw;
             }
         }

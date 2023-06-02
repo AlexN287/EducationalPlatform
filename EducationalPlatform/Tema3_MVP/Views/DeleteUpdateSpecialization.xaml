@@ -10,8 +10,8 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Add Name" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,10"/>
             <TextBox x:Name="nameTextBox" Width="200" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding Name}"/>
-            <Button Content="Update" Width="80" HorizontalAlignment="Center" Command="{Binding UpdateSpecializationCommand}" CommandParameter="{Binding newSubject}"/>
-            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteSpecializationCommand}" CommandParameter="{Binding newSubject}"/>
+            <Button Content="Update" Width="80" HorizontalAlignment="Center" Command="{Binding UpdateSpecializationCommand}"/>
+            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteSpecializationCommand}"/>
 
             <ListView x:Name="lvSubjects" SelectedItem="{Binding SelectedSpecialization}" SelectionMode="Single" ItemsSource="{Binding Specializations}" Margin="0,10,5,0" Width="260" Height="176">
                 <ListView.ItemTemplate>

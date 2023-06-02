@@ -11,15 +11,19 @@ using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
 using System.Xml.Serialization;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class AddClassVM : ViewModelBase
     {
-        public SpecializationBLL specializationBLL = new SpecializationBLL();
-        public TeacherBLL teacherBLL = new TeacherBLL();
-        public ObservableCollection<Teacher> teachers;
+        public AddClassVM()
+        {
+            teachers = TeacherBLL.GetAllTeachers();
+            specializations = SpecializationBLL.GetAllSpecializations();
+        }
 
+        private ObservableCollection<Teacher> teachers;
         public ObservableCollection<Teacher> Teachers
         {
             get { return teachers; }
@@ -47,11 +51,6 @@ namespace Tema3_MVP.ViewModels
                     NotifyPropertyChanged(nameof(selectedTeacher));
                 }
             }
-        }
-        public AddClassVM()
-        {
-            teachers = TeacherBLL.GetAllTeachers();
-            specializations = SpecializationBLL.GetAllSpecializations();
         }
 
         private string studyYear;
@@ -113,26 +112,26 @@ namespace Tema3_MVP.ViewModels
 
             }
         }
-        public ICommand addClassCommand { get; set; }
+        private ICommand addClassCommand { get; set; }
         public ICommand AddClassCommand
         {
             get
             {
                 if (addClassCommand == null)
                 {
-                    addClassCommand = new RelayCommand<Class>(this.AddClass);
+                    addClassCommand = new RelayCommand(this.AddClass);
                 }
 
                 return addClassCommand;
             }
         }
 
-        public void AddClass(Class newClass)
+        private void AddClass()
         {
             if (selectedTeacher != null)
             {
-                Class class1 = new Class(selectedTeacher.teacherID, int.Parse(studyYear), selectedSpecialization.specializationID, section[0]);
-                ClassBLL.AddClass(class1);
+                Class newClass = new Class(selectedTeacher.teacherID, int.Parse(studyYear), selectedSpecialization.specializationID, section[0]);
+                ClassBLL.AddClass(newClass);
                 MessageBox.Show("class Added");
             }
             else

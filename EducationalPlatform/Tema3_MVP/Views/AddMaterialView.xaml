@@ -19,8 +19,8 @@
         <StackPanel Grid.Row="0" Margin="10">
             <TextBlock Text="Name:"/>
             <TextBox x:Name="semesterTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Name}"/>
-            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddMaterialCommand}" CommandParameter="{Binding newClass}"/>
-            <Button Content="Choose Material" Width="80" HorizontalAlignment="Center" Command="{Binding ChooseMaterialCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddMaterialCommand}"/>
+            <Button Content="Choose Material" Width="80" HorizontalAlignment="Center" Command="{Binding ChooseMaterialCommand}"/>
 
         </StackPanel>
 

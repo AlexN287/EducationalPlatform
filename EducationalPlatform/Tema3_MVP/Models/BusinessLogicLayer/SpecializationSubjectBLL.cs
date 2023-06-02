@@ -11,7 +11,7 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
     public class SpecializationSubjectBLL
     {
         public SpecializationSubjectBLL() { }
-        private static SpecializationSubjectDAL classStudentDAL = new SpecializationSubjectDAL();
+        private static SpecializationSubjectDAL specializationSubjectDAL = new SpecializationSubjectDAL();
         public static void AddSpecializatioSubject(SpecializationSubject specializationSubject)
         {
             try
@@ -21,18 +21,18 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
                     throw new ArgumentNullException(nameof(specializationSubject), "Subject cannot be null.");
                 }
 
-                classStudentDAL.AddSpecializationSubject(specializationSubject);
+                specializationSubjectDAL.AddSpecializationSubject(specializationSubject);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a subject: " + ex.Message);
+                Console.WriteLine("An error occurred while adding a SpecializationSubject: " + ex.Message);
                 throw;
             }
         }
 
         public static bool GetThesisStatus(Subject subject)
         {
-            return classStudentDAL.GetThesisStatus(subject.SubjectID);
+            return specializationSubjectDAL.GetThesisStatus(subject.SubjectID);
         }
     }
 }

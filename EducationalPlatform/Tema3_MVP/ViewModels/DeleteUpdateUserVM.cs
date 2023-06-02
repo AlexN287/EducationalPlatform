@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -88,7 +89,7 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand updateUserCommand { get; set; }
+        private ICommand updateUserCommand { get; set; }
 
         public ICommand UpdateUserCommand
         {
@@ -96,21 +97,21 @@ namespace Tema3_MVP.ViewModels
             {
                 if (updateUserCommand == null)
                 {
-                    updateUserCommand = new RelayCommand<User>(this.updateUser);
+                    updateUserCommand = new RelayCommand(this.updateUser);
                 }
 
                 return updateUserCommand;
             }
         }
 
-        public void updateUser(User user)
+        private void updateUser()
         {
-            User user1 = new User(selectedUser.userID, username, password, role);
-            UserBLL.UpdateUser(user1);
+            User user = new User(selectedUser.userID, username, password, role);
+            UserBLL.UpdateUser(user);
             MessageBox.Show("User Updated");
         }
 
-        public ICommand deleteUserCommand { get; set; }
+        private ICommand deleteUserCommand { get; set; }
 
         public ICommand DeleteUserCommand
         {
@@ -118,13 +119,13 @@ namespace Tema3_MVP.ViewModels
             {
                 if (deleteUserCommand == null)
                 {
-                    deleteUserCommand = new RelayCommand<User>(this.deleteUser);
+                    deleteUserCommand = new RelayCommand(this.deleteUser);
                 }
 
                 return deleteUserCommand;
             }
         }
-        public void deleteUser(User user)
+        private void deleteUser()
         {
             UserBLL.DeleteUser(selectedUser);
             MessageBox.Show("User Deleted");

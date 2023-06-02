@@ -18,7 +18,7 @@
         <!-- Input Section -->
         <StackPanel Grid.Row="0" Margin="10">
 
-            <Button Content="Motivate" Width="80" HorizontalAlignment="Center" Command="{Binding MotivateAbsenceCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Motivate" Width="80" HorizontalAlignment="Center" Command="{Binding MotivateAbsenceCommand}"/>
 
 
         </StackPanel>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,7 @@ namespace Tema3_MVP.ViewModels
     public class MainWindowVM: ViewModelBase
     {
         public MainWindowVM() { }
-
-        UserBLL userBLL = new UserBLL();
-        public User currentUser { get; set; }
+        private User currentUser { get; set; }
 
         private string username;
         public string Username
@@ -42,7 +41,7 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public void Login(User ds)
+        private void Login()
         {
             if (string.IsNullOrEmpty(Username))
             {
@@ -93,7 +92,7 @@ namespace Tema3_MVP.ViewModels
             {
                 if (loginCommand == null)
                 {
-                    loginCommand = new RelayCommand<User>(this.Login);
+                    loginCommand = new RelayCommand(this.Login);
                 }
 
                 return loginCommand;

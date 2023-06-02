@@ -9,12 +9,13 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class AddGradeVM: ViewModelBase
     {
-        public Teacher currentTeacher;
+        private Teacher currentTeacher;
         public AddGradeVM(Teacher teacher)
         {
             this.currentTeacher = teacher;
@@ -174,60 +175,59 @@ namespace Tema3_MVP.ViewModels
             {
                 if (classSelectionCommand == null)
                 {
-                    classSelectionCommand = new RelayCommand<Class>(this.UpdateSubjects);
+                    classSelectionCommand = new RelayCommand(this.UpdateSubjectsListView);
                 }
 
                 return classSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Class subject)
+        private void UpdateSubjectsListView()
         {
             Subjects = TeacherBLL.GetTeacherSubjectsByClass(currentTeacher, selectedClass);
             Students = StudentBLL.GetStudentsFromClass(selectedClass);
-
         }
 
-        public ICommand subjectSelectionCommand { get; set; }
+        private ICommand subjectSelectionCommand { get; set; }
         public ICommand SubjectSelectionCommand
         {
             get
             {
                 if (subjectSelectionCommand == null)
                 {
-                    subjectSelectionCommand = new RelayCommand<Class>(this.UpdateHasThesis);
+                    subjectSelectionCommand = new RelayCommand(this.UpdateHasThesisCheckBox);
                 }
 
                 return subjectSelectionCommand;
             }
         }
 
-        public void UpdateHasThesis(Class c)
+        private void UpdateHasThesisCheckBox()
         {
             HasThesis = SpecializationSubjectBLL.GetThesisStatus(selectedSubject);
         }
             
 
-        public ICommand addGradeCommand { get; set; }
+        private ICommand addGradeCommand { get; set; }
         public ICommand AddGradeCommand
         {
             get
             {
                 if (addGradeCommand == null)
                 {
-                    addGradeCommand = new RelayCommand<Grade>(this.AddGrade);
+                    addGradeCommand = new RelayCommand(this.AddGrade);
                 }
 
                 return addGradeCommand;
             }
         }
 
-        public void AddGrade(Grade grade)
+        private void AddGrade()
         {
             
             bool isCanceled = false;
-            Grade grade2 = new Grade(selectedStudent.studentID, int.Parse(semester), selectedSubject.subjectID, DateTime.Parse(date), float.Parse(Grade1), HasThesis , isCanceled);
-            GradeBLL.AddGrade(grade2);
+            Grade newgGrade = new Grade(selectedStudent.studentID, int.Parse(semester), selectedSubject.subjectID, DateTime.Parse(date), float.Parse(Grade1), HasThesis , isCanceled);
+            GradeBLL.AddGrade(newgGrade);
             MessageBox.Show("Grade Added");
         }
     }

@@ -25,7 +25,7 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             {
                 if (specialization == null)
                 {
-                    throw new ArgumentNullException(nameof(specialization), "Student cannot be null.");
+                    throw new ArgumentNullException(nameof(specialization), "Specialization cannot be null.");
                 }
 
                 int? k = specializationDAL.AddSpecialization(specialization);
@@ -36,13 +36,13 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
                 }
                 else
                 {
-                    throw new Exception("Failed to retrieve the user ID after adding the student.");
+                    throw new Exception("Failed to retrieve the user ID after adding the specialization.");
                 }
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a teacher: " + ex.Message);
+                Console.WriteLine("An error occurred while adding a subject: " + ex.Message);
                 throw;
             }
         }

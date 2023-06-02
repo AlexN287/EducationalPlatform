@@ -9,12 +9,13 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class CancelGradeVM: ViewModelBase
     {
-        public Teacher currentTeacher;
+        private Teacher currentTeacher;
         public CancelGradeVM(Teacher teacher)
         {
             this.currentTeacher = teacher;
@@ -136,61 +137,60 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand classSelectionCommand { get; set; }
+        private ICommand classSelectionCommand { get; set; }
         public ICommand ClassSelectionCommand
         {
             get
             {
                 if (classSelectionCommand == null)
                 {
-                    classSelectionCommand = new RelayCommand<Class>(this.UpdateSubjects);
+                    classSelectionCommand = new RelayCommand(this.UpdateSubjectsListView);
                 }
 
                 return classSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Class subject)
+        private void UpdateSubjectsListView()
         {
             Subjects = TeacherBLL.GetTeacherSubjectsByClass(currentTeacher, selectedClass);
             Students = StudentBLL.GetStudentsFromClass(selectedClass);
-
         }
 
-        public ICommand studentSelectionCommand { get; set; }
+        private ICommand studentSelectionCommand { get; set; }
         public ICommand StudentSelectionCommand
         {
             get
             {
                 if (studentSelectionCommand == null)
                 {
-                    studentSelectionCommand = new RelayCommand<Student>(this.UpdateGrades);
+                    studentSelectionCommand = new RelayCommand(this.UpdateGradesListView);
                 }
 
                 return studentSelectionCommand;
             }
         }
 
-        public void UpdateGrades(Student student)
+        private void UpdateGradesListView()
         {
             Grades = GradeBLL.GetGradesByStudentSubject(selectedStudent, selectedSubject);
         }
 
-        public ICommand cancelGradeCommand { get; set; }
+        private ICommand cancelGradeCommand { get; set; }
         public ICommand CancelGradeCommand
         {
             get
             {
                 if (cancelGradeCommand == null)
                 {
-                    cancelGradeCommand = new RelayCommand<Grade>(this.CancelGrade);
+                    cancelGradeCommand = new RelayCommand(this.CancelGrade);
                 }
 
                 return cancelGradeCommand;
             }
         }
 
-        public void CancelGrade(Grade grade)
+        private void CancelGrade()
         {
             GradeBLL.CancelGrade(SelectedGrade);
             Grades = GradeBLL.GetGradesByStudentSubject(selectedStudent, selectedSubject);

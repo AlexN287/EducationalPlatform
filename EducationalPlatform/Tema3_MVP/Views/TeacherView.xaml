@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Absence">
-                <MenuItem Header="Add" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddAbsence" />
+                <MenuItem Header="Add" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddAbsence"/>
                 <MenuItem Header="Motivate" Command="{Binding MenuItemSelectedCommand}" CommandParameter="MotivateAbsence"/>
             </MenuItem>
             <MenuItem Header="Grade">

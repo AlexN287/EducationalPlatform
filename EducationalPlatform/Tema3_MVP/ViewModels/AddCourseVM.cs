@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -112,24 +113,24 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand addCourseCommand { get; set; }
+        private ICommand addCourseCommand { get; set; }
         public ICommand AddCourseCommand
         {
             get
             {
                 if (addCourseCommand == null)
                 {
-                    addCourseCommand = new RelayCommand<Courses>(this.AddCourse);
+                    addCourseCommand = new RelayCommand(this.AddCourse);
                 }
 
                 return addCourseCommand;
             }
         }
 
-        public void AddCourse(Courses course)
+        private void AddCourse()
         {
-            Courses courses = new Courses(selectedClass.classID, selectedSubject.subjectID, selectedTeacher.teacherID); 
-            CourseBLL.AddCourseWithoutMaterial(courses);
+            Courses newCourse = new Courses(selectedClass.classID, selectedSubject.subjectID, selectedTeacher.teacherID); 
+            CourseBLL.AddCourseWithoutMaterial(newCourse);
             MessageBox.Show("Course Added");
         }
     }

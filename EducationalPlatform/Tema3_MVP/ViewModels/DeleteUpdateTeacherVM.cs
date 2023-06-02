@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Tema3_MVP.ViewModels
     {
         public DeleteUpdateTeacherVM() { teachers = TeacherBLL.GetAllTeachers(); }
 
-        public ObservableCollection<Teacher> teachers;
+        private ObservableCollection<Teacher> teachers;
 
         public ObservableCollection<Teacher> Teachers
         {
@@ -76,43 +77,43 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand updateTeacherCommand { get; set; }
+        private ICommand updateTeacherCommand { get; set; }
         public ICommand UpdateTeacherCommand
         {
             get
             {
                 if (updateTeacherCommand == null)
                 {
-                    updateTeacherCommand = new RelayCommand<Teacher>(this.updateTeacher);
+                    updateTeacherCommand = new RelayCommand(this.updateTeacher);
                 }
 
                 return updateTeacherCommand;
             }
         }
 
-        public void updateTeacher(Teacher teacher)
+        private void updateTeacher()
         {
-            Teacher teacher1 = new Teacher(selectedTeacher.TeacherID, Firstname, Lastname, selectedTeacher.userID);
-            TeacherBLL.UpdateTeacher(teacher1);
+            Teacher teacher = new Teacher(selectedTeacher.TeacherID, Firstname, Lastname, selectedTeacher.userID);
+            TeacherBLL.UpdateTeacher(teacher);
             Teachers = TeacherBLL.GetAllTeachers();
             MessageBox.Show("Teacher Updated");
         }
 
-        public ICommand deleteTeacherCommand { get; set; }
+        private ICommand deleteTeacherCommand { get; set; }
         public ICommand DeleteTeacherCommand
         {
             get
             {
                 if (deleteTeacherCommand == null)
                 {
-                    deleteTeacherCommand = new RelayCommand<Teacher>(this.deleteTeacher);
+                    deleteTeacherCommand = new RelayCommand(this.deleteTeacher);
                 }
 
                 return deleteTeacherCommand;
             }
         }
 
-        public void deleteTeacher(Teacher teacher)
+        private void deleteTeacher()
         {
             TeacherBLL.DeleteTeacher(selectedTeacher);
             Teachers = TeacherBLL.GetAllTeachers();

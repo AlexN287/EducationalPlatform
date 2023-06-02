@@ -36,7 +36,7 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a teacher: " + ex.Message);
+                Console.WriteLine("An error occurred while adding a class: " + ex.Message);
                 throw;
             }
         }

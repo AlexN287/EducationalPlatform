@@ -11,6 +11,7 @@ using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.DataAccessLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
@@ -80,7 +81,7 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand updateStudentCommand { get; set; }
+        private ICommand updateStudentCommand { get; set; }
 
         public ICommand UpdateStudentCommand
         {
@@ -88,14 +89,14 @@ namespace Tema3_MVP.ViewModels
             {
                 if (updateStudentCommand == null)
                 {
-                    updateStudentCommand = new RelayCommand<Student>(this.updateStudent);
+                    updateStudentCommand = new RelayCommand(this.updateStudent);
                 }
 
                 return updateStudentCommand;
             }
         }
 
-        public ObservableCollection<Class> classes;
+        private ObservableCollection<Class> classes;
 
         public ObservableCollection<Class> Classes
         {
@@ -125,31 +126,30 @@ namespace Tema3_MVP.ViewModels
                 }
             }
         }
-        public void updateStudent(Student student)
+        private void updateStudent()
         {
-            Student student1 = new Student(selectedStudent.StudentID, firstname, lastname, selectedStudent.userID);
-            StudentBLL.UpdateStudent(student1);
+            Student student = new Student(selectedStudent.StudentID, firstname, lastname, selectedStudent.userID);
+            StudentBLL.UpdateStudent(student);
             ClassStudents classStudents = new ClassStudents(selectedClass.classID, selectedStudent.userID);
             ClassStudentBLL.UpdateClassStudent(classStudents);
             Students = StudentBLL.GetAllStudents();
             MessageBox.Show("Student Updated");
         }
 
-        public ICommand deleteStudentCommand { get; set; }
-
+        private ICommand deleteStudentCommand { get; set; }
         public ICommand DeleteStudentCommand
         {
             get
             {
                 if (deleteStudentCommand == null)
                 {
-                    deleteStudentCommand = new RelayCommand<Student>(this.deleteStudent);
+                    deleteStudentCommand = new RelayCommand(this.deleteStudent);
                 }
 
                 return deleteStudentCommand;
             }
         }
-        public void deleteStudent(Student student)
+        public void deleteStudent()
         {
             StudentBLL.DeleteStudent(selectedStudent);
             Students = StudentBLL.GetAllStudents();

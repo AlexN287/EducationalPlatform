@@ -19,7 +19,7 @@
             <TextBox x:Name="studyYearTextBox" Width="200" Margin="0,5,0,10" Text="{Binding StudyYear}"/>
             <TextBlock Text="Section:"/>
             <TextBox x:Name="sectionTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Section}"/>
-            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddClassCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddClassCommand}" />
         </StackPanel>
 
         <!-- ListView Section -->

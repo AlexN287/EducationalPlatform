@@ -14,8 +14,8 @@
         </Grid.RowDefinitions>
 
         <!-- Input Section -->
-        <Button Content="Update" Command="{Binding UpdateCourseCommand}" CommandParameter="{Binding newCourse}"/>
-        <Button Content="Delete" Command="{Binding DeleteCourseCommand}" CommandParameter="{Binding newCourse}"/>
+        <Button Content="Update" Command="{Binding UpdateCourseCommand}"/>
+        <Button Content="Delete" Command="{Binding DeleteCourseCommand}"/>
 
         <!-- ListView Section -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">

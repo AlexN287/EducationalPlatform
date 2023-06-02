@@ -18,7 +18,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <CheckBox Content="Has Thesis" IsChecked="{Binding HasThesis}" />
-            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddSpecializationCommand}" CommandParameter="{Binding newSpecialization}"/>
+            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddSpecializationCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

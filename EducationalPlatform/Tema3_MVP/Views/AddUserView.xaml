@@ -24,7 +24,7 @@
                 <sys:String>HeadTeacher</sys:String>
             </ComboBox>
 
-            <Button Content="Add" Width="80" Margin="0 10" Command="{Binding AddUserCommand}" CommandParameter="{Binding currentUser}"/>
+            <Button Content="Add" Width="80" Margin="0 10" Command="{Binding AddUserCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

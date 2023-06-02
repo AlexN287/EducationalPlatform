@@ -10,12 +10,13 @@ using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
 using System.Runtime.InteropServices;
 using System.Windows;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class StudentVM: ViewModelBase
     {
-        public Student currentStudent;
+        private Student currentStudent;
         public StudentVM(User user)
         {
             currentStudent = StudentBLL.GetStudentByUser(user);
@@ -141,7 +142,7 @@ namespace Tema3_MVP.ViewModels
 
         [DllImport("shell32.dll", SetLastError = true)]
         private static extern bool ShellExecute(IntPtr hwnd, string lpOperation, string lpFile, string lpParameters, string lpDirectory, int nShowCmd);
-        public void DownloadMaterial(TeacherMaterial teacherMaterial)
+        private void DownloadMaterial()
         {
 
             if (SelectedSubject == null)
@@ -164,10 +165,8 @@ namespace Tema3_MVP.ViewModels
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Error occured downloading material");
             }
-            //ErrorMessage = string.Empty;
-
         }
 
         public ICommand openCommand { get; set; }
@@ -177,34 +176,35 @@ namespace Tema3_MVP.ViewModels
             {
                 if (openCommand == null)
                 {
-                    openCommand = new RelayCommand<TeacherMaterial>(this.DownloadMaterial);
+                    openCommand = new RelayCommand(this.DownloadMaterial);
                 }
 
                 return openCommand;
             }
         }
 
-        public ICommand subjectSelectionCommand { get; set; }
+        private ICommand subjectSelectionCommand { get; set; }
         public ICommand SubjectSelectionCommand
         {
             get
             {
                 if (subjectSelectionCommand == null)
                 {
-                    subjectSelectionCommand = new RelayCommand<Subject>(this.UpdateSubjects);
+                    subjectSelectionCommand = new RelayCommand(this.UpdateListViews);
                 }
 
                 return subjectSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Subject subject)
+        private Class studentClass;
+        private void UpdateListViews()
         {
             Grades = GradeBLL.GetGradesByStudentSubject(currentStudent, selectedSubject); 
             Absences = AbsenceBLL.GetStudentSubjectAbsences(currentStudent, selectedSubject);
             Materials = CourseBLL.GetTeacherMaterialForClassAndSubject(studentClass, selectedSubject);
         }
 
-        public Class studentClass;
+        
     }
 }

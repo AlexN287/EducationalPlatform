@@ -9,13 +9,13 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class DeleteUpdateSpecializationVM: ViewModelBase
     {
         
-
         private string name;
         public string Name
         {
@@ -34,6 +34,7 @@ namespace Tema3_MVP.ViewModels
         {
             specializations = SpecializationBLL.GetAllSpecializations();
         }
+
         private ObservableCollection<Specialization> specializations;
         public ObservableCollection<Specialization> Specializations
         {
@@ -64,30 +65,29 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand updateSpecializationCommand { get; set; }
-
+        private ICommand updateSpecializationCommand { get; set; }
         public ICommand UpdateSpecializationCommand
         {
             get
             {
                 if (updateSpecializationCommand == null)
                 {
-                    updateSpecializationCommand = new RelayCommand<Specialization>(this.UpdateSpecialization);
+                    updateSpecializationCommand = new RelayCommand(this.UpdateSpecialization);
                 }
 
                 return updateSpecializationCommand;
             }
         }
 
-        public void UpdateSpecialization(Specialization subject)
+        private void UpdateSpecialization()
         {
-            Specialization subject1 = new Specialization(selectedSpecialization.SpecializationID, name);
-            SpecializationBLL.UpdateSpecialization(subject1);
+            Specialization specialization = new Specialization(selectedSpecialization.SpecializationID, name);
+            SpecializationBLL.UpdateSpecialization(specialization);
             Specializations = SpecializationBLL.GetAllSpecializations();
             MessageBox.Show("Specialization updated");
         }
 
-        public ICommand deleteSpecializationCommand { get; set; }
+        private ICommand deleteSpecializationCommand { get; set; }
 
         public ICommand DeleteSpecializationCommand
         {
@@ -95,14 +95,14 @@ namespace Tema3_MVP.ViewModels
             {
                 if (deleteSpecializationCommand == null)
                 {
-                    deleteSpecializationCommand = new RelayCommand<Specialization>(this.deleteSpecialization);
+                    deleteSpecializationCommand = new RelayCommand(this.deleteSpecialization);
                 }
 
                 return deleteSpecializationCommand;
             }
         }
 
-        public void deleteSpecialization(Specialization subject)
+        private void deleteSpecialization()
         {
             SpecializationBLL.DeleteSpecialization(selectedSpecialization);
             Specializations = SpecializationBLL.GetAllSpecializations();

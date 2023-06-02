@@ -10,7 +10,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Add Name" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,10"/>
             <TextBox x:Name="nameTextBox" Width="200" HorizontalAlignment="Center" Margin="0,0,0,10" Text="{Binding Name}"/>
-            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddSubjectCommand}" CommandParameter="{Binding newSubject}"/>
+            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddSubjectCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

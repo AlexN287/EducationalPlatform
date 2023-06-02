@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,6 @@ namespace Tema3_MVP.ViewModels
         {
 
         }
-
-        UserBLL userBLL = new UserBLL();
         public User currentUser { get; set; }
 
         private static string username;
@@ -62,7 +61,7 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand addUserCommand { get; set; }
+        private ICommand addUserCommand { get; set; }
 
         public ICommand AddUserCommand
         {
@@ -70,14 +69,14 @@ namespace Tema3_MVP.ViewModels
              {
                  if (addUserCommand == null)
                  {
-                    addUserCommand = new RelayCommand<User>(this.AddUser);
+                    addUserCommand = new RelayCommand(this.AddUser);
                  }
 
                 return addUserCommand;
              }
         }
        
-        public void AddUser(User user)
+        private void AddUser()
         {
             User newUser = new User(Username, Password, Role.ToString());
             UserBLL.AddUser(newUser);

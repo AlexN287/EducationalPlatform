@@ -11,16 +11,19 @@ using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
 using System.Collections.ObjectModel;
 using Tema3_MVP.Models.DataAccessLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class AddStudentVM: ViewModelBase
     {
-        string role = "Student";
-        public UserBLL userBLL = new UserBLL();
-        public StudentBLL studentBLL = new StudentBLL();
-        public ObservableCollection<User> users;
-
+        private string role = "Student";
+        private ObservableCollection<User> users;
+        public AddStudentVM()
+        {
+            users = UserBLL.GetUsersByRole(role);
+            classes = ClassBLL.GetAllClasses();
+        }
         public ObservableCollection<User> Users
         {
             get { return users; }
@@ -48,11 +51,6 @@ namespace Tema3_MVP.ViewModels
                     NotifyPropertyChanged(nameof(selectedUser));
                 }
             }
-        }
-        public AddStudentVM() 
-        { 
-            users = UserBLL.GetUsersByRole(role);
-            classes = ClassBLL.GetAllClasses();
         }
 
         private string firstname;
@@ -114,26 +112,26 @@ namespace Tema3_MVP.ViewModels
                 }
             }
         }
-        public ICommand addStudentCommand { get; set; }
+        private ICommand addStudentCommand { get; set; }
         public ICommand AddStudentCommand
         {
             get
             {
                 if (addStudentCommand == null)
                 {
-                    addStudentCommand = new RelayCommand<Student>(this.AddStudent);
+                    addStudentCommand = new RelayCommand(this.AddStudent);
                 }
 
                 return addStudentCommand;
             }
         }
 
-        public void AddStudent(Student student)
+        private void AddStudent()
         {
             if(selectedUser!=null)
             {
-                Student student1 = new Student(Firstname, Lastname, selectedUser.userID);
-                int student_id = StudentBLL.AddStudent(student1);
+                Student newStudent = new Student(Firstname, Lastname, selectedUser.userID);
+                int student_id = StudentBLL.AddStudent(newStudent);
                 ClassStudents classStudents = new ClassStudents(selectedClass.classID, student_id);
                 ClassStudentBLL.AddClassStudent(classStudents);
                 MessageBox.Show("Student Added");

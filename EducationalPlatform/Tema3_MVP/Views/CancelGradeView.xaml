@@ -17,7 +17,7 @@
         <!-- Input Section -->
         <StackPanel Grid.Row="0" Margin="10">
 
-            <Button Content="Cancel" Width="80" HorizontalAlignment="Center" Command="{Binding CancelGradeCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Cancel" Width="80" HorizontalAlignment="Center" Command="{Binding CancelGradeCommand}"/>
 
 
         </StackPanel>

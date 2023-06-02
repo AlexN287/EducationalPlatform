@@ -9,12 +9,14 @@ using System.Windows.Input;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class AddAbsenceVM: ViewModelBase
     {
-        public Teacher currentTeacher;
+        private Teacher currentTeacher;
         public AddAbsenceVM(Teacher teacher) 
         {
             this.currentTeacher = teacher;
@@ -138,46 +140,45 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand classSelectionCommand { get; set; }
+        private ICommand classSelectionCommand { get; set; }
         public ICommand ClassSelectionCommand
         {
             get
             {
                 if (classSelectionCommand == null)
                 {
-                    classSelectionCommand = new RelayCommand<Class>(this.UpdateSubjects);
+                    classSelectionCommand = new RelayCommand(this.UpdateSubjectsListView);
                 }
 
                 return classSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Class subject)
+        private void UpdateSubjectsListView()
         {
             Subjects = TeacherBLL.GetTeacherSubjectsByClass(currentTeacher, selectedClass);
             Students = StudentBLL.GetStudentsFromClass(selectedClass);
-            
         }
 
-        public ICommand addAbsenceCommand { get; set; }
+        private ICommand addAbsenceCommand { get; set; }
         public ICommand AddAbsenceCommand
         {
             get
             {
                 if (addAbsenceCommand == null)
                 {
-                    addAbsenceCommand = new RelayCommand<Absence>(this.AddAbsence);
+                    addAbsenceCommand = new RelayCommand(this.AddAbsence);
                 }
 
                 return addAbsenceCommand;
             }
         }
 
-        public void AddAbsence(Absence absence)
+        private void AddAbsence()
         {
             bool isMotivated = false;
-            Absence absence1 = new Absence(selectedStudent.studentID, int.Parse(semester),selectedSubject.subjectID, DateTime.Parse(date), isMotivated);
-            AbsenceBLL.AddAbsence(absence1);
+            Absence newAbsence = new Absence(selectedStudent.studentID, int.Parse(semester),selectedSubject.subjectID, DateTime.Parse(date), isMotivated);
+            AbsenceBLL.AddAbsence(newAbsence);
             MessageBox.Show("Absence Added");
         }
     }

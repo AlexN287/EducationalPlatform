@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Tema3_MVP.ViewModels
         {
             subjects = SubjectBLL.GetAllSubjects();
         }
+
         private ObservableCollection<Subject> subjects;
         public ObservableCollection<Subject> Subjects
         {
@@ -62,45 +64,42 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand updateSubjectCommand { get; set; }
-
+        private ICommand updateSubjectCommand { get; set; }
         public ICommand UpdateSubjectCommand
         {
             get
             {
                 if (updateSubjectCommand == null)
                 {
-                    updateSubjectCommand = new RelayCommand<Subject>(this.UpdateSubject);
+                    updateSubjectCommand = new RelayCommand(this.UpdateSubject);
                 }
 
                 return updateSubjectCommand;
             }
         }
-
-        public void UpdateSubject(Subject subject)
+        private void UpdateSubject()
         {
-            Subject subject1 = new Subject(selectedSubject.SubjectID, name);
-            SubjectBLL.UpdateSubject(subject1);
+            Subject subject = new Subject(selectedSubject.SubjectID, name);
+            SubjectBLL.UpdateSubject(subject);
             Subjects = SubjectBLL.GetAllSubjects();
             MessageBox.Show("Subject updated");
         }
 
-        public ICommand deleteSubjectCommand { get; set; }
-
+        private ICommand deleteSubjectCommand { get; set; }
         public ICommand DeleteSubjectCommand
         {
             get
             {
                 if (deleteSubjectCommand == null)
                 {
-                    deleteSubjectCommand = new RelayCommand<Subject>(this.deleteSubject);
+                    deleteSubjectCommand = new RelayCommand(this.deleteSubject);
                 }
 
                 return deleteSubjectCommand;
             }
         }
 
-        public void deleteSubject(Subject subject)
+        private void deleteSubject()
         {
             SubjectBLL.DeleteSubject(selectedSubject);
             Subjects = SubjectBLL.GetAllSubjects();

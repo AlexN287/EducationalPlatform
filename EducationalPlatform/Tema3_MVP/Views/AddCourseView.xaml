@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!-- Input Section -->
-        <Button Content="Add" Command="{Binding AddCourseCommand}" CommandParameter="{Binding newCourse}"/>
+        <Button Content="Add" Command="{Binding AddCourseCommand}"/>
 
         <!-- ListView Section -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">

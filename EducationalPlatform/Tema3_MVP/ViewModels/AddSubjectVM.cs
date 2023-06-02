@@ -8,14 +8,14 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class AddSubjectVM: ViewModelBase
     {
         public AddSubjectVM() { }
-        public SubjectBLL subjectBLL = new SubjectBLL();
-        public Subject newSubject;
+        private SubjectBLL subjectBLL = new SubjectBLL();
 
         private string name;
         public string Name
@@ -31,25 +31,24 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand addSubjectCommand { get; set; }
-
+        private ICommand addSubjectCommand { get; set; }
         public ICommand AddSubjectCommand
         {
             get
             {
                 if (addSubjectCommand == null)
                 {
-                    addSubjectCommand = new RelayCommand<Subject>(this.AddSubject);
+                    addSubjectCommand = new RelayCommand(this.AddSubject);
                 }
 
                 return addSubjectCommand;
             }
         }
 
-        public void AddSubject(Subject subject)
+        private void AddSubject()
         {
-            Subject subject1 = new Subject(Name);
-            subjectBLL.AddSubject(subject1);
+            Subject newSubject = new Subject(Name);
+            subjectBLL.AddSubject(newSubject);
             MessageBox.Show("Subject Added");
         }
     }

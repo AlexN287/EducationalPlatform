@@ -9,12 +9,13 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class DeleteAbsenceVM: ViewModelBase
     {
-        public Teacher currentTeacher;
+        private Teacher currentTeacher;
         public DeleteAbsenceVM(Teacher teacher)
         {
             this.currentTeacher = teacher;
@@ -136,63 +137,61 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand classSelectionCommand { get; set; }
+        private ICommand classSelectionCommand { get; set; }
         public ICommand ClassSelectionCommand
         {
             get
             {
                 if (classSelectionCommand == null)
                 {
-                    classSelectionCommand = new RelayCommand<Class>(this.UpdateSubjects);
+                    classSelectionCommand = new RelayCommand(this.UpdateSubjectsListView);
                 }
 
                 return classSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Class subject)
+        private void UpdateSubjectsListView()
         {
             Subjects = TeacherBLL.GetTeacherSubjectsByClass(currentTeacher, selectedClass);
             Students = StudentBLL.GetStudentsFromClass(selectedClass);
 
         }
-
-        public ICommand studentSelectionCommand { get; set; }
+        private ICommand studentSelectionCommand { get; set; }
         public ICommand StudentSelectionCommand
         {
             get
             {
                 if (studentSelectionCommand == null)
                 {
-                    studentSelectionCommand = new RelayCommand<Student>(this.UpdateAbsences);
+                    studentSelectionCommand = new RelayCommand(this.UpdateAbsencesListView);
                 }
 
                 return studentSelectionCommand;
             }
         }
 
-        public void UpdateAbsences(Student student)
+        private void UpdateAbsencesListView()
         {
             Absences = AbsenceBLL.GetAllAbsencesByStudent(selectedStudent);
         }
 
-        public ICommand motivateAbsenceCommand { get; set; }
+        private ICommand motivateAbsenceCommand { get; set; }
         public ICommand MotivateAbsenceCommand
         {
             get
             {
                 if (motivateAbsenceCommand == null)
                 {
-                    motivateAbsenceCommand = new RelayCommand<Absence>(this.MotivateAbsence);
+                    motivateAbsenceCommand = new RelayCommand(this.MotivateAbsence);
                 }
 
                 return motivateAbsenceCommand;
             }
         }
 
-        public void MotivateAbsence(Absence absence)
+        private void MotivateAbsence()
         {
-            bool isMotivated = false;
             AbsenceBLL.MotivateAbsence(selectedAbsence);
             Absences = AbsenceBLL.GetAllAbsencesByStudent(selectedStudent);
             MessageBox.Show("Absence Motivated");

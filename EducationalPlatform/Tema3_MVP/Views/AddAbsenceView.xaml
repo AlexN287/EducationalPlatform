@@ -19,8 +19,8 @@
             <TextBox x:Name="semesterTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Semester}"/>
             <TextBlock Text="Date:"/>
             <TextBox x:Name="dateTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Date}"/>
-            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddAbsenceCommand}" CommandParameter="{Binding newClass}"/>
-            <Button Content="Select Class" Width="80" HorizontalAlignment="Center" Command="{Binding ClassSelectionCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddAbsenceCommand}"/>
+            <Button Content="Select Class" Width="80" HorizontalAlignment="Center" Command="{Binding ClassSelectionCommand}" />
 
 
         </StackPanel>

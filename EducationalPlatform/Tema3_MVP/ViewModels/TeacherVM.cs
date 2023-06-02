@@ -26,18 +26,6 @@ namespace Tema3_MVP.ViewModels
         }
         public ICommand MenuItemSelectedCommand { get; set; }
 
-        /* public ICommand MenuItemSelectedCommand
-         {
-             get
-             {
-                 if (menuItemSelectedCommand == null)
-                 {
-                     menuItemSelectedCommand = new RelayCommand<string>(this.OnMenuItemSelected);
-                 }
-
-                 return menuItemSelectedCommand;
-             }
-         }*/
         public Teacher currentTeacher;
         public TeacherVM(User user)
         {
@@ -103,24 +91,6 @@ namespace Tema3_MVP.ViewModels
                 case "DeleteCourse":
                     DeleteUpdateCoursesView deleteUpdateCourse = new DeleteUpdateCoursesView();
                     deleteUpdateCourse.Show();
-                    break;
-                case "UpdateStudent":
-                    // Handle update student action
-                    break;
-                case "UpdateTeacher":
-                    // Handle update teacher action
-                    break;
-                case "UpdateSubject":
-                    // Handle update subject action
-                    break;
-                case "UpdateClass":
-                    // Handle update class action
-                    break;
-                case "UpdateSpecialization":
-                    // Handle update specialization action
-                    break;
-                case "UpdateUser":
-                    // Handle update user action
                     break;
                 default:
                     // Handle unrecognized menu item

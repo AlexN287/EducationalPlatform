@@ -9,6 +9,7 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
@@ -20,8 +21,7 @@ namespace Tema3_MVP.ViewModels
             teachers = TeacherBLL.GetAllTeachers();
             subjects = SubjectBLL.GetAllSubjects();
         }
-        public ObservableCollection<Class> classes;
-
+        private ObservableCollection<Class> classes;
         public ObservableCollection<Class> Classes
         {
             get { return classes; }
@@ -37,7 +37,6 @@ namespace Tema3_MVP.ViewModels
         }
 
         private Class selectedClass;
-
         public Class SelectedClass
         {
             get { return selectedClass; }
@@ -81,7 +80,7 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ObservableCollection<Teacher> teachers;
+        private ObservableCollection<Teacher> teachers;
 
         public ObservableCollection<Teacher> Teachers
         {
@@ -111,21 +110,21 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand addCourseCommand { get; set; }
+        private ICommand addCourseCommand { get; set; }
         public ICommand AddCourseCommand
         {
             get
             {
                 if (addCourseCommand == null)
                 {
-                    addCourseCommand = new RelayCommand<Courses>(this.AddCourse);
+                    addCourseCommand = new RelayCommand(this.AddCourse);
                 }
 
                 return addCourseCommand;
             }
         }
 
-        public void AddCourse(Courses course)
+        private void AddCourse()
         {
             Courses courses = new Courses(selectedClass.classID, selectedTeacher.teacherID, selectedSubject.subjectID);
             CourseBLL.AddCourseWithoutMaterial(courses);

@@ -19,8 +19,8 @@
             <TextBox x:Name="studyYearTextBox" Width="200" Margin="0,5,0,10" Text="{Binding StudyYear}"/>
             <TextBlock Text="Section:"/>
             <TextBox x:Name="sectionTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Section}"/>
-            <Button Content="Update" Width="80" HorizontalAlignment="Center" Command="{Binding UpdateClassCommand}" CommandParameter="{Binding newClass}"/>
-            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteClassCommand}" CommandParameter="{Binding newClass}"/>
+            <Button Content="Update" Width="80" HorizontalAlignment="Center" Command="{Binding UpdateClassCommand}"/>
+            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteClassCommand}"/>
 
         </StackPanel>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Tema3_MVP.ViewModels
 {
     public class DeleteMaterialVM: ViewModelBase
     {
-        public Teacher currentTeacher;
+        private Teacher currentTeacher;
         public DeleteMaterialVM(Teacher teacher)
         {
             this.currentTeacher = teacher;
@@ -81,21 +82,21 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand classSelectionCommand { get; set; }
+        private ICommand classSelectionCommand { get; set; }
         public ICommand ClassSelectionCommand
         {
             get
             {
                 if (classSelectionCommand == null)
                 {
-                    classSelectionCommand = new RelayCommand<Class>(this.UpdateSubjects);
+                    classSelectionCommand = new RelayCommand(this.UpdateSubjects);
                 }
 
                 return classSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Class subject)
+        private void UpdateSubjects()
         {
             Subjects = TeacherBLL.GetTeacherSubjectsByClass(currentTeacher, selectedClass);
         }
@@ -130,40 +131,40 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand subjectSelectionCommand { get; set; }
+        private ICommand subjectSelectionCommand { get; set; }
         public ICommand SubjectSelectionCommand
         {
             get
             {
                 if (subjectSelectionCommand == null)
                 {
-                    subjectSelectionCommand = new RelayCommand<Subject>(this.UpdateSubjects);
+                    subjectSelectionCommand = new RelayCommand(this.UpdateMaterialsListView);
                 }
 
                 return subjectSelectionCommand;
             }
         }
 
-        public void UpdateSubjects(Subject subject)
+        private void UpdateMaterialsListView()
         {
             Courses c = new Courses(selectedClass.classID, selectedSubject.subjectID, currentTeacher.teacherID); ;
             Materials = CourseBLL.GetMaterialForClassSubjectTeacher(c);
         }
-        public ICommand deleteMaterialCommand { get; set; }
+        private ICommand deleteMaterialCommand { get; set; }
         public ICommand DeleteMaterialCommand
         {
             get
             {
                 if (deleteMaterialCommand == null)
                 {
-                    deleteMaterialCommand = new RelayCommand<TeacherMaterial>(this.DeleteMaterial);
+                    deleteMaterialCommand = new RelayCommand(this.DeleteMaterial);
                 }
 
                 return deleteMaterialCommand;
             }
         }
 
-        public void DeleteMaterial(TeacherMaterial teacherMaterial)
+        private void DeleteMaterial()
         {
             CourseBLL.DeleteMaterial(selectedMaterial);
             

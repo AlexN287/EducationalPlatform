@@ -9,16 +9,19 @@ using System.Windows;
 using Tema3_MVP.Commands;
 using Tema3_MVP.Models.BusinessLogicLayer;
 using Tema3_MVP.Models.EntityLayer;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tema3_MVP.ViewModels
 {
     public class AddTeacherVM: ViewModelBase
     {
-        string role = "Teacher";
-        public UserBLL userBLL = new UserBLL();
-        public TeacherBLL teacherBLL = new TeacherBLL();
-        public ObservableCollection<User> users;
+        public AddTeacherVM()
+        {
+            users = UserBLL.GetUsersByRole(role);
+        }
 
+        private string role = "Teacher";
+        private ObservableCollection<User> users;
         public ObservableCollection<User> Users
         {
             get { return users; }
@@ -46,11 +49,6 @@ namespace Tema3_MVP.ViewModels
                     NotifyPropertyChanged(nameof(selectedUser));
                 }
             }
-        }
-        public AddTeacherVM()
-        {
-            users = UserBLL.GetUsersByRole(role);
-            //subjects = SubjectBLL.GetAllSubjects();
         }
 
         private string firstname;
@@ -82,60 +80,26 @@ namespace Tema3_MVP.ViewModels
 
             }
         }
-
-        /*private ObservableCollection<Subject> subjects;
-        public ObservableCollection<Subject> Subjects
-        {
-            get { return subjects; }
-            set
-            {
-                if (subjects != value)
-                {
-                    subjects = value;
-                    NotifyPropertyChanged(nameof(subjects));
-                }
-
-            }
-        }
-
-        private Subject selectedSubject;
-        public Subject SelectedSubject
-        {
-            get { return selectedSubject; }
-            set
-            {
-                if (selectedSubject != value)
-                {
-                    selectedSubject = value;
-                    NotifyPropertyChanged(nameof(SelectedSubject));
-                }
-
-            }
-        }*/
-
-        private TeacherSubjectBLL teacherSubjectBLL { get; set; }
-        public ICommand addTeacherCommand { get; set; }
+        private ICommand addTeacherCommand { get; set; }
         public ICommand AddTeacherCommand
         {
             get
             {
                 if (addTeacherCommand == null)
                 {
-                    addTeacherCommand = new RelayCommand<Teacher>(this.AddTeacher);
+                    addTeacherCommand = new RelayCommand(this.AddTeacher);
                 }
 
                 return addTeacherCommand;
             }
         }
 
-        public void AddTeacher(Teacher teacher)
+        private void AddTeacher()
         {
             if (selectedUser != null)
             {
-                Teacher teacher1 = new Teacher(Firstname, Lastname, selectedUser.userID);
-                int newTeacherID = TeacherBLL.AddTeacher(teacher1);
-                //TeacherSubject newTeacherSubject = new TeacherSubject(newTeacherID, selectedSubject.subjectID);
-                //TeacherSubjectBLL.AddTeacherSubject(newTeacherSubject);
+                Teacher newTeacher = new Teacher(Firstname, Lastname, selectedUser.userID);
+                int newTeacherID = TeacherBLL.AddTeacher(newTeacher);
                 MessageBox.Show("teacher Added");
             }
             else

@@ -44,7 +44,7 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a absence: " + ex.Message);
+                Console.WriteLine("An error occurred while motivating an absence: " + ex.Message);
                 throw;
             }
         }

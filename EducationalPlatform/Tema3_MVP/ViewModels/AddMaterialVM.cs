@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ namespace Tema3_MVP.ViewModels
 {
     public class AddMaterialVM: ViewModelBase
     {
-        public Teacher currentTeacher;
+        private Teacher currentTeacher;
         public AddMaterialVM(Teacher teacher)
         {
             this.currentTeacher = teacher;
@@ -109,21 +110,21 @@ namespace Tema3_MVP.ViewModels
             }
         }
 
-        public ICommand classSelectionCommand { get; set; }
+        private ICommand classSelectionCommand { get; set; }
         public ICommand ClassSelectionCommand
         {
             get
             {
                 if (classSelectionCommand == null)
                 {
-                    classSelectionCommand = new RelayCommand<Class>(this.UpdateSubjects);
+                    classSelectionCommand = new RelayCommand(this.UpdateSubjectsListView);
                 }
 
                 return classSelectionCommand;
             }
         }
 
-        public void ChooseMaterial(TeacherMaterial teacherMaterial)
+        private void ChooseMaterial()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
@@ -133,44 +134,44 @@ namespace Tema3_MVP.ViewModels
                 FilePath = openFileDialog.FileName;
             }
         }
-        public void UpdateSubjects(Class subject)
+        private void UpdateSubjectsListView()
         {
             Subjects = TeacherBLL.GetTeacherSubjectsByClass(currentTeacher, selectedClass);
         }
 
-        public ICommand chooseMaterialCommand { get; set; }
+        private ICommand chooseMaterialCommand { get; set; }
         public ICommand ChooseMaterialCommand
         {
             get
             {
                 if (chooseMaterialCommand == null)
                 {
-                    chooseMaterialCommand = new RelayCommand<TeacherMaterial>(this.ChooseMaterial);
+                    chooseMaterialCommand = new RelayCommand(this.ChooseMaterial);
                 }
 
                 return chooseMaterialCommand;
             }
         }
 
-        public ICommand addMaterialCommand { get; set; }
+        private ICommand addMaterialCommand { get; set; }
         public ICommand AddMaterialCommand
         {
             get
             {
                 if (addMaterialCommand == null)
                 {
-                    addMaterialCommand = new RelayCommand<TeacherMaterial>(this.AddMaterial);
+                    addMaterialCommand = new RelayCommand(this.AddMaterial);
                 }
 
                 return addMaterialCommand;
             }
         }
 
-        public void AddMaterial(TeacherMaterial teacherMaterial)
+        public void AddMaterial()
         {
-            Courses courses = new Courses(selectedClass.classID, selectedSubject.subjectID, currentTeacher.teacherID);
-            TeacherMaterial teacherMaterial1 = new TeacherMaterial(Name, FilePath);
-            CourseBLL.InsertTeacherMaterialAndSetCourse(courses, teacherMaterial1);
+            Courses course = new Courses(selectedClass.classID, selectedSubject.subjectID, currentTeacher.teacherID);
+            TeacherMaterial newTeacherMaterial = new TeacherMaterial(Name, FilePath);
+            CourseBLL.InsertTeacherMaterialAndSetCourse(course, newTeacherMaterial);
             MessageBox.Show("Material Added");
         }
     }

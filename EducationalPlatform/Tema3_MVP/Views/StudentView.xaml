@@ -17,7 +17,7 @@
         <!-- Input Section -->
         <StackPanel Grid.Row="0" Margin="10">
 
-            <Button Content="Open" Command="{Binding OpenCommand}" CommandParameter="{Binding selectedMaterial}"/>
+            <Button Content="Open" Command="{Binding OpenCommand}" />
 
 
         </StackPanel>

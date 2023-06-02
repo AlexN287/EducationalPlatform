@@ -18,14 +18,14 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             {
                 if (classStudents == null)
                 {
-                    throw new ArgumentNullException(nameof(classStudents), "Subject cannot be null.");
+                    throw new ArgumentNullException(nameof(classStudents), "ClassStudent cannot be null.");
                 }
 
                 classStudentDAL.AddClassStudent(classStudents);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a subject: " + ex.Message);
+                Console.WriteLine("An error occurred while adding a classStudent: " + ex.Message);
                 throw;
             }
         }
@@ -36,14 +36,14 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             {
                 if (classStudent == null)
                 {
-                    throw new ArgumentNullException(nameof(classStudent), "Student cannot be null.");
+                    throw new ArgumentNullException(nameof(classStudent), "ClassStudent cannot be null.");
                 }
 
                 classStudentDAL.UpdateClassStudent(classStudent);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while updating a student: " + ex.Message);
+                Console.WriteLine("An error occurred while updating a classStudent: " + ex.Message);
                 throw;
             }
         }

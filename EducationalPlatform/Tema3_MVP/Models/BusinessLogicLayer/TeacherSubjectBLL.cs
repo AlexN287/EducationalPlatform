@@ -23,14 +23,14 @@ namespace Tema3_MVP.Models.BusinessLogicLayer
             {
                 if (teacherSubject == null)
                 {
-                    throw new ArgumentNullException(nameof(teacherSubject), "Subject cannot be null.");
+                    throw new ArgumentNullException(nameof(teacherSubject), "teacherSubject cannot be null.");
                 }
 
                 teacherSubjectDAL.AddTeacherSubject(teacherSubject);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding a subject: " + ex.Message);
+                Console.WriteLine("An error occurred while adding a teacherSubject: " + ex.Message);
                 throw;
             }
         }

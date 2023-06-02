@@ -16,7 +16,7 @@
                 <Label Content="Password:"/>
                 <TextBox Name="txtPassword" Width="200" Margin="10" Text="{Binding Password}"/>
             </StackPanel>
-            <Button Content="Sign In" Margin="10" Width="100" Height="30" Command="{Binding LoginCommand}" CommandParameter="{Binding currentUser}"/>
+            <Button Content="Sign In" Margin="10" Width="100" Height="30" Command="{Binding LoginCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
