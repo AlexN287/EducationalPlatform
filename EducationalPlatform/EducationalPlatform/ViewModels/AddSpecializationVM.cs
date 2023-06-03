@@ -19,7 +19,7 @@ namespace Tema3_MVP.ViewModels
     {
         public AddSpecializationVM()
         {
-            subjects = SubjectBLL.GetAllSubjects();
+            //subjects = SubjectBLL.GetAllSubjects();
         }
 
         private string name;
@@ -48,50 +48,6 @@ namespace Tema3_MVP.ViewModels
                 }
 
                 return addSpecializationCommand;
-            }
-        }
-
-        private ObservableCollection<Subject> subjects;
-        public ObservableCollection<Subject> Subjects
-        {
-            get { return subjects; }
-            set
-            {
-                if (subjects != value)
-                {
-                    subjects = value;
-                    NotifyPropertyChanged(nameof(subjects));
-                }
-
-            }
-        }
-
-        private Subject selectedSubject;
-        public Subject SelectedSubject
-        {
-            get { return selectedSubject; }
-            set
-            {
-                if (selectedSubject != value)
-                {
-                    selectedSubject = value;
-                    NotifyPropertyChanged(nameof(SelectedSubject));
-                }
-
-            }
-        }
-
-        private bool _hasThesis;
-        public bool HasThesis
-        {
-            get { return _hasThesis; }
-            set
-            {
-                if (_hasThesis != value)
-                {
-                    _hasThesis = value;
-                    NotifyPropertyChanged(nameof(HasThesis));
-                }
             }
         }
         private void AddSpecialization()
