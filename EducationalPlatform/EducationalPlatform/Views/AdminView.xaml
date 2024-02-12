@@ -1,0 +1,49 @@
+﻿<Window x:Class="Tema3_MVP.Views.AdminView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3_MVP.Views"
+        mc:Ignorable="d"
+        Title="AdminView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Add">
+                <MenuItem Header="Student" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddStudent" />
+                <MenuItem Header="Teacher" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddTeacher"/>
+                <MenuItem Header="Subject" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddSubject"/>
+                <MenuItem Header="Class" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddClass"/>
+                <MenuItem Header="Specialization" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddSpecialization"/>
+                <MenuItem Header="User" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddUser"/>
+                <MenuItem Header="AddCourse" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddCourse"/>
+                <MenuItem Header="AddSpecializationSubject" Command="{Binding MenuItemSelectedCommand}" CommandParameter="AddSpecializationSubject"/>
+
+            </MenuItem>
+            <MenuItem Header="Delete">
+                <MenuItem Header="Student" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteStudent"/>
+                <MenuItem Header="Teacher" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteTeacher"/>
+                <MenuItem Header="Subject" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteSubject"/>
+                <MenuItem Header="Class" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteClass"/>
+                <MenuItem Header="Specialization" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteSpecialization"/>
+                <MenuItem Header="User" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteUser"/>
+                <MenuItem Header="Course" Command="{Binding MenuItemSelectedCommand}" CommandParameter="DeleteCourse"/>
+
+            </MenuItem>
+            <MenuItem Header="Update">
+                <MenuItem Header="Student" Command="{Binding MenuItemSelectedCommand}" CommandParameter="UpdateStudent"/>
+                <MenuItem Header="Teacher" Command="{Binding MenuItemSelectedCommand}" CommandParameter="UpdateTeacher"/>
+                <MenuItem Header="Subject" Command="{Binding MenuItemSelectedCommand}" CommandParameter="UpdateSubject"/>
+                <MenuItem Header="Class" Command="{Binding MenuItemSelectedCommand}" CommandParameter="UpdateClass"/>
+                <MenuItem Header="Specialization" Command="{Binding MenuItemSelectedCommand}" CommandParameter="UpdateSpecialization"/>
+                <MenuItem Header="User" Command="{Binding MenuItemSelectedCommand}" CommandParameter="UpdateUser"/>
+            </MenuItem>
+        </Menu>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ContentControl Content="{Binding SelectedMenuItemContent}" Margin="75,70,120,70"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

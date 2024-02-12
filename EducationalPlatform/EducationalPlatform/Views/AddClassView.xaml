@@ -1,0 +1,44 @@
+﻿<Window x:Class="Tema3_MVP.Views.AddClassView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3_MVP.Views"
+        mc:Ignorable="d"
+        Title="AddClassView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Input Section -->
+        <StackPanel Grid.Row="0" Margin="10">
+            <TextBlock Text="Study Year:"/>
+            <TextBox x:Name="studyYearTextBox" Width="200" Margin="0,5,0,10" Text="{Binding StudyYear}"/>
+            <TextBlock Text="Section:"/>
+            <TextBox x:Name="sectionTextBox" Width="200" Margin="0,5,0,10" Text="{Binding Section}"/>
+            <Button Content="Add" Width="80" HorizontalAlignment="Center" Command="{Binding AddClassCommand}" />
+        </StackPanel>
+
+        <!-- ListView Section -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ListView x:Name="lvUsers" SelectedItem="{Binding SelectedTeacher}" SelectionMode="Single" ItemsSource="{Binding Teachers}" Margin="0,10,5,0" Width="260" Height="176">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FirstName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView x:Name="lvSubjects" SelectedItem="{Binding SelectedSpecialization}" SelectionMode="Single" ItemsSource="{Binding Specializations}" Margin="5,10,0,0" Width="260" Height="176">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

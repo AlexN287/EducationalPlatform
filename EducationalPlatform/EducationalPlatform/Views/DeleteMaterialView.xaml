@@ -1,0 +1,76 @@
+﻿<Window x:Class="Tema3_MVP.Views.DeleteMaterialView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:Tema3_MVP.Views"
+        mc:Ignorable="d"
+        Title="DeleteMaterialView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Input Section -->
+        <StackPanel Grid.Row="0" Margin="10">
+            
+            <Button Content="Delete" Width="80" HorizontalAlignment="Center" Command="{Binding DeleteMaterialCommand}"/>
+            
+
+        </StackPanel>
+
+        <!-- ListView Section -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ListView x:Name="lvClasses"
+          SelectedItem="{Binding SelectedClass}"
+          SelectionMode="Single"
+          ItemsSource="{Binding Classes}"
+          Margin="0,10,5,0"
+          Width="260"
+          Height="176">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ClassSelectionCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock>
+                                <Run Text="a " />
+                                <Run Text="{Binding StudyYear}" />
+                                <Run Text="-a" />
+                            </TextBlock>
+                            <TextBlock Text="{Binding Section}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView x:Name="lvSubjects" SelectedItem="{Binding SelectedSubject}" SelectionMode="Single" ItemsSource="{Binding Subjects}" Margin="0,10,5,0" Width="260" Height="176">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SubjectSelectionCommand}" CommandParameter="{Binding SelectedItem, ElementName=lvSubjects}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+
+            <ListView x:Name="lvMaterials" SelectedItem="{Binding SelectedMaterial}" SelectionMode="Single" ItemsSource="{Binding Materials}" Margin="0,10,5,0" Width="260" Height="176">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</Window>
